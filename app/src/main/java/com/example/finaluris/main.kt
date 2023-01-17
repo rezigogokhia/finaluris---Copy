@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.registration.*
 class main : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_main)
+        setContentView(R.layout.fragment_fragment1)
 
         textView.text = FirebaseAuth.getInstance().currentUser?.uid
 
