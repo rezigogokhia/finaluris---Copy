@@ -1,13 +1,26 @@
 package com.example.finaluris
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.changepassword.*
 import kotlinx.android.synthetic.main.changepassword.editTextPassword
+import kotlinx.android.synthetic.main.fragment_fragment1.*
+import kotlinx.android.synthetic.main.fragment_fragment1.view.*
+import kotlinx.android.synthetic.main.fragment_fragment2.view.*
 import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.passwordreset.*
 import kotlinx.android.synthetic.main.passwordreset.editTextEmail
@@ -16,7 +29,7 @@ import kotlinx.android.synthetic.main.registration.*
 class main : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.fragment_main)
 
         textView.text = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -61,6 +74,19 @@ class changepasswordactivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.changepassword)
 
+        val btn = findViewById<Button>(R.id.btnTest)
+        btn.setOnClickListener{
+            val dialogbinding = layoutInflater.inflate(R.layout.custom_dialog,null)
+
+            val myDialog = Dialog(this)
+            myDialog.setContentView(dialogbinding)
+
+            myDialog.setCancelable(true)
+            myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            myDialog.show()
+
+        }
+
         buttonChangePassword.setOnClickListener {
 
             val newPassword = editTextPassword.text.toString()
@@ -83,6 +109,7 @@ class changepasswordactivity : AppCompatActivity() {
         }
 
     }
+
 }
 
 class registrationactivity : AppCompatActivity() {
@@ -165,3 +192,43 @@ class loginactivity : AppCompatActivity() {
 
     }
 }
+
+class fragment1 : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_fragment1, container, false)
+
+        view.buttonFYP.setOnClickListener { Navigation.findNavController(view).navigate(R.id.navigateToSecondFragment)}
+
+
+        return view
+
+
+    }
+
+
+}
+
+class fragment2 : Fragment() {
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_fragment1, container, false)
+
+        view.buttonHome.setOnClickListener { Navigation.findNavController(view).navigate(R.id.navigateToFirstFragment)}
+
+
+        return view
+    }
+
+
+}
+
